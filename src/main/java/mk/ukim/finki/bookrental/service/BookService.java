@@ -23,7 +23,7 @@ public interface BookService {
 
     Optional<Book> edit(Long bookId, String name, Category category, Long authorId, Integer availableCopies);
 
-    Optional<Book> edit(Long bookId,BookDto bookDto);
+    Optional<Book> edit(Long bookId, BookDto bookDto);
 
     void deleteById(Long id);
 
