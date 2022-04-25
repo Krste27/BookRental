@@ -13,9 +13,9 @@ public interface CountryService {
 
     Optional<Country> save(Country country);
 
-    Optional<Country> save(String name, String continent);
+//    Optional<Country> save(String name, String continent);
 
-    Optional<Country> edit(Long countryId, String name, String continent);
+//    Optional<Country> edit(Long countryId, String name, String continent);
 
     void deleteById(Long id);
 }

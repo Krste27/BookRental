@@ -15,6 +15,7 @@ public class Book {
 
     private String name;
 
+    @Enumerated(EnumType.STRING)
     private Category category;
 
     @ManyToOne

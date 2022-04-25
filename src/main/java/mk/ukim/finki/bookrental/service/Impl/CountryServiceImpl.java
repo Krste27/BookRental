@@ -33,21 +33,21 @@ public class CountryServiceImpl implements CountryService {
         return Optional.of(countryRepository.save(country));
     }
 
-    @Override
-    public Optional<Country> save(String name, String continent) {
-        Country country = new Country(name,continent);
-        return Optional.of(this.countryRepository.save(country));
-    }
+//    @Override
+//    public Optional<Country> save(String name, String continent) {
+//        Country country = new Country(name,continent);
+//        return Optional.of(this.countryRepository.save(country));
+//    }
 
-    @Override
-    public Optional<Country> edit(Long countryId, String name, String continent) {
-        Country country = this.countryRepository.findById(countryId).orElseThrow(() -> new CountryNotFoundException(countryId));
-
-        country.setName(name);
-        country.setContinent(continent);
-
-        return this.save(country);
-    }
+//    @Override
+//    public Optional<Country> edit(Long countryId, String name, String continent) {
+//        Country country = this.countryRepository.findById(countryId).orElseThrow(() -> new CountryNotFoundException(countryId));
+//
+//        country.setName(name);
+//        country.setContinent(continent);
+//
+//        return this.save(country);
+//    }
 
     @Override
     public void deleteById(Long id) {

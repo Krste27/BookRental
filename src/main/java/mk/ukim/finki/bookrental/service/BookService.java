@@ -17,13 +17,11 @@ public interface BookService {
 
     Optional<Book> save(Book book);
 
-    Optional<Book> save(String name, Category category, Long authorId, Integer availableCopies);
-
     Optional<Book> save(BookDto bookDto);
 
-    Optional<Book> edit(Long bookId, String name, Category category, Long authorId, Integer availableCopies);
-
     Optional<Book> edit(Long bookId, BookDto bookDto);
+
+    Optional<Book> takeBook(Long id);
 
     void deleteById(Long id);
 

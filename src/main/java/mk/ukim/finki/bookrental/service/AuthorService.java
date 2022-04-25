@@ -14,9 +14,9 @@ public interface AuthorService {
 
     Optional<Author> save(Author author);
 
-    Optional<Author> save(String name, String surname, Long countryId);
+//    Optional<Author> save(String name, String surname, Long countryId);
 
-    Optional<Author> edit(Long authorId, String name, String surname, Long countryId);
+//    Optional<Author> edit(Long authorId, String name, String surname, Long countryId);
 
     void deleteById(Long id);
 }

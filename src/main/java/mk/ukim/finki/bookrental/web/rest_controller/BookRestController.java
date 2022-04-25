@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/books")
+@CrossOrigin(origins = "http://localhost:3000")
 public class BookRestController {
 
     private final BookService bookService;
@@ -52,10 +53,17 @@ public class BookRestController {
                 .orElseGet(() -> ResponseEntity.badRequest().build());
     }
 
+    @PutMapping("/take/{id}")
+    public ResponseEntity<Book> takeBook(@PathVariable Long id){
+        return this.bookService.takeBook(id)
+                .map(book -> ResponseEntity.ok().body(book))
+                .orElseGet(() -> ResponseEntity.badRequest().build());
+    }
+
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteById(@PathVariable Long id) {
+    public ResponseEntity<Book> deleteById(@PathVariable Long id) {
         this.bookService.deleteById(id);
-        if(this.bookService.findById(id).isEmpty()) return ResponseEntity.ok().build();
+        if (this.bookService.findById(id).isEmpty()) return ResponseEntity.ok().build();
         return ResponseEntity.badRequest().build();
     }
 }

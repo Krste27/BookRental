@@ -5,6 +5,7 @@ import mk.ukim.finki.bookrental.model.Book;
 import mk.ukim.finki.bookrental.model.dto.BookDto;
 import mk.ukim.finki.bookrental.model.enumerations.Category;
 import mk.ukim.finki.bookrental.model.exceptions.AuthorNotFoundException;
+import mk.ukim.finki.bookrental.model.exceptions.BookNotAvailable;
 import mk.ukim.finki.bookrental.model.exceptions.BookNotFoundException;
 import mk.ukim.finki.bookrental.repository.AuthorRepository;
 import mk.ukim.finki.bookrental.repository.BookRepository;
@@ -42,13 +43,13 @@ public class BookServiceImpl implements BookService {
         return Optional.of(bookRepository.save(book));
     }
 
-    @Override
-    public Optional<Book> save(String name, Category category, Long authorId, Integer availableCopies) {
-        Author author = this.authorRepository.findById(authorId).orElseThrow(() -> new AuthorNotFoundException(authorId));
-
-        Book book = new Book(name, category, author, availableCopies);
-        return Optional.of(this.bookRepository.save(book));
-    }
+//    @Override
+//    public Optional<Book> save(String name, Category category, Long authorId, Integer availableCopies) {
+//        Author author = this.authorRepository.findById(authorId).orElseThrow(() -> new AuthorNotFoundException(authorId));
+//
+//        Book book = new Book(name, category, author, availableCopies);
+//        return Optional.of(this.bookRepository.save(book));
+//    }
 
     @Override
     public Optional<Book> save(BookDto bookDto) {
@@ -60,18 +61,18 @@ public class BookServiceImpl implements BookService {
     }
 
 
-    @Override
-    public Optional<Book> edit(Long bookId, String name, Category category, Long authorId, Integer availableCopies) {
-        Author author = this.authorRepository.findById(authorId).orElseThrow(() -> new AuthorNotFoundException(authorId));
-        Book book = this.findById(bookId).orElseThrow(() -> new BookNotFoundException(bookId));
-
-        book.setName(name);
-        book.setCategory(category);
-        book.setAuthor(author);
-        book.setAvailableCopies(availableCopies);
-
-        return this.save(book);
-    }
+//    @Override
+//    public Optional<Book> edit(Long bookId, String name, Category category, Long authorId, Integer availableCopies) {
+//        Author author = this.authorRepository.findById(authorId).orElseThrow(() -> new AuthorNotFoundException(authorId));
+//        Book book = this.findById(bookId).orElseThrow(() -> new BookNotFoundException(bookId));
+//
+//        book.setName(name);
+//        book.setCategory(category);
+//        book.setAuthor(author);
+//        book.setAvailableCopies(availableCopies);
+//
+//        return this.save(book);
+//    }
 
     @Override
     public Optional<Book> edit(Long bookId, BookDto bookDto) {
@@ -85,6 +86,18 @@ public class BookServiceImpl implements BookService {
         book.setAuthor(author);
         book.setAvailableCopies(bookDto.getAvailableCopies());
 
+        return this.save(book);
+    }
+
+    @Override
+    public Optional<Book> takeBook(Long id) {
+        Book book = this.findById(id).orElseThrow(() -> new BookNotFoundException(id));
+        Integer current_avb_copies = book.getAvailableCopies();
+        if (current_avb_copies == 0){
+            throw new BookNotAvailable(id);
+        }else {
+            book.setAvailableCopies(current_avb_copies - 1);
+        }
         return this.save(book);
     }
 

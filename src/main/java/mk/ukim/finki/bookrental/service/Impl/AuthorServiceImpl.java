@@ -38,25 +38,25 @@ public class AuthorServiceImpl implements AuthorService {
         return Optional.of(authorRepository.save(author));
     }
 
-    @Override
-    public Optional<Author> save(String name, String surname, Long countryId) {
-        Country country = this.countryRepository.findById(countryId).orElseThrow(() -> new CountryNotFoundException(countryId));
+//    @Override
+//    public Optional<Author> save(String name, String surname, Long countryId) {
+//        Country country = this.countryRepository.findById(countryId).orElseThrow(() -> new CountryNotFoundException(countryId));
+//
+//        Author author = new Author(name,surname,country);
+//        return Optional.of(this.authorRepository.save(author));
+//    }
 
-        Author author = new Author(name,surname,country);
-        return Optional.of(this.authorRepository.save(author));
-    }
-
-    @Override
-    public Optional<Author> edit(Long authorId, String name, String surname, Long countryId) {
-        Author author = this.findById(authorId).orElseThrow( () -> new AuthorNotFoundException(authorId));
-        Country country = this.countryRepository.findById(countryId).orElseThrow( () -> new CountryNotFoundException(countryId));
-
-        author.setName(name);
-        author.setSurname(surname);
-        author.setCountry(country);
-
-        return this.save(author);
-    }
+//    @Override
+//    public Optional<Author> edit(Long authorId, String name, String surname, Long countryId) {
+//        Author author = this.findById(authorId).orElseThrow( () -> new AuthorNotFoundException(authorId));
+//        Country country = this.countryRepository.findById(countryId).orElseThrow( () -> new CountryNotFoundException(countryId));
+//
+//        author.setName(name);
+//        author.setSurname(surname);
+//        author.setCountry(country);
+//
+//        return this.save(author);
+//    }
 
     @Override
     public void deleteById(Long id) {
